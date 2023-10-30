@@ -80,7 +80,7 @@ int main() {
     {
         printf("%s/%s/%d\n", data_array[i].date, data_array[i].time, data_array[i].steps);
     }
-    printf("Number of records in file: %d\n", count);
+    printf("Number of records in file: %d\n", count+1);
 
     fclose(file);
     return 0;

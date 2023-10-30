@@ -78,9 +78,9 @@ int main() {
     // Getting the first three records
     for (int i = 0; i < 3; i++)
     {
-        printf("%s/%s/%d\n", data_array[i].date, data_array[i].time, data_array[i].steps);
+        printf("%s/%s/%d", data_array[i].date, data_array[i].time, data_array[i].steps);
     }
-    printf("Number of records in file: %d\n", count);
+    printf("Number of records in file: %d", count);
 
     fclose(file);
     return 0;

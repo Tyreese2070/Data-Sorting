@@ -51,6 +51,8 @@ int main() {
         return 1;
     }
 
+    FITNESS_DATA data_array[100];
+
     char date[11];
     char time[6];
     char steps[10];
@@ -59,13 +61,24 @@ int main() {
 
     int buffer_size = 1024;
     char line_buffer[buffer_size];
-    while (fgets(line_buffer, buffer_size, file) != NULL && count <3)
+
+    //Get first three lines
+    while (fgets(line_buffer, buffer_size, file) != NULL)
     {
         tokeniseRecord(line_buffer, delimiter, date, time, steps);
+        strcpy(data_array[count].date, date);
+        strcpy(data_array[count].time, time);
+        strcpy(data_array[count].steps, atoi(steps));
         printf("%s/%s/%d\n", date, time, atoi(steps));
         count ++;
     }
 
+    for (int i; i < 3; i++)
+    {
+        printf("%s/%s/%d\n", data_array[i].date, data_array[i].time, data_array[i].steps);
+    }
+
+    printf("Number of records in file: %d\n", count);
     fclose(file);
     return 0;
 }

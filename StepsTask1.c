@@ -51,6 +51,21 @@ int main() {
         return 1;
     }
 
-    printf("%s", data);
+    char date[11];
+    char time[6];
+    char steps[10];
+    char delimiter[2] = ",";
+    int count = 0;
 
+    int buffer_size = 1024;
+    char line_buffer[buffer_size];
+    while (fgets(line_buffer, buffer_size, file) != NULL && count <3)
+    {
+        tokeniseRecord(line_buffer, delimiter, date, time, steps);
+        printf("%s/%s/%d\n", date, time, atoi(steps));
+        count ++;
+    }
+
+    fclose(file);
+    return 0;
 }

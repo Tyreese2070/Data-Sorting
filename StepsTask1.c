@@ -43,6 +43,8 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
 // Complete the main function
 int main() {
+    
+    // Opening the file
     char data[] = "FitnessData_2023.csv";
     FILE *file = fopen(data, "r");
     if (file == NULL)
@@ -51,6 +53,7 @@ int main() {
         return 1;
     }
 
+    // Creating a struct array
     FITNESS_DATA data_array[100];
 
     char date[11];
@@ -62,23 +65,23 @@ int main() {
     int buffer_size = 1024;
     char line_buffer[buffer_size];
 
-    //Get first three lines
+    // Adding to the struct and increasing the count to get the number of records
     while (fgets(line_buffer, buffer_size, file) != NULL)
     {
         tokeniseRecord(line_buffer, delimiter, date, time, steps);
         strcpy(data_array[count].date, date);
         strcpy(data_array[count].time, time);
-        strcpy(data_array[count].steps, atoi(steps));
-        printf("%s/%s/%d\n", date, time, atoi(steps));
+        data_array[count].steps = atoi(steps);
         count ++;
     }
 
+    // Getting the first three records
     for (int i; i < 3; i++)
     {
         printf("%s/%s/%d\n", data_array[i].date, data_array[i].time, data_array[i].steps);
     }
-
     printf("Number of records in file: %d\n", count);
+
     fclose(file);
     return 0;
 }

@@ -46,8 +46,16 @@ int main()
     char userinput;
     char filename[25];
     int running = 1;
+    FITNESS_DATA data_array[100];
 
-    
+    char date[11];
+    char time[6];
+    char steps[10];
+    char delimiter[2] = ",";
+    int count = 0;
+
+    int buffer_size = 1024;
+    char line_buffer[buffer_size];
 
     while(running == 1)
     {
@@ -72,13 +80,31 @@ int main()
                 else
                 {
                     printf("File successfully loaded.\n");
+                    while (fgets(line_buffer, buffer_size, file) != NULL)
+                        {
+                            tokeniseRecord(line_buffer, delimiter, date, time, steps);
+                            strcpy(data_array[count].date, date);
+                            strcpy(data_array[count].time, time);
+                            data_array[count].steps = atoi(steps);
+                            count ++;
+                        }
                 }
+            break;
             
             case 'B':
+                printf("Total records: %d", count);
+            break;
 
-            case 'Q': return 0;
+            case 'c':
+                feweststeps(data_array, count);
+            break;
+
+            case 'Q': 
+                running = 0;
+            break;
             
             default: printf("--------------\n");
+            break;
         }
     }
 

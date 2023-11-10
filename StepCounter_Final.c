@@ -45,30 +45,41 @@ int main()
 {
     char userinput;
     char filename[25];
+    int running = 1;
 
     printf("A: Specify the filename to be imported\nB: Display the total number of records in the file\nC: Find the date and time of the timeslot with the fewest steps\nD: Find the date and time of the timeslot with the largest number of steps\nE: Find the mean step count of all the records in the file\nF: Find the longest continuous period where the step count is above 500 steps\nQ: Quit\n");
     printf("Enter input choice: ");
     scanf("%c", &userinput);
 
-    switch(userinput)
+    while(running == 1)
     {
-        case 'A':  
-            printf("Input filename: ");
-            scanf("%s", filename);
-            char data[] = filename;
-            FILE *file = fopen(data, "r");
-            if (file == NULL)
-            {
-                perror("Error: Could not find or open file");
-                return 1;
-            }
-            else
-            {
-                printf("File successfully loaded.\n");
-            }
-        
-        default: printf("--------------");
+        switch(userinput)
+        {
+            case 'A':  
+                printf("Input filename: ");
+                scanf("%s", filename);
+                char data[25];
+                strcpy(data, filename);
+                FILE *file = fopen(data, "r");
+                if (file == NULL)
+                {
+                    perror("Error: Could not find or open file");
+                    return 1;
+                }
+                else
+                {
+                    printf("File successfully loaded.\n");
+                }
+            
+            case 'B':
+
+            case 'Q': return 0;
+            
+            default: printf("--------------");
+        }
     }
+
+    return 0;
    
 }
 

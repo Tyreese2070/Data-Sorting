@@ -47,12 +47,15 @@ int main()
     char filename[25];
     int running = 1;
 
-    printf("A: Specify the filename to be imported\nB: Display the total number of records in the file\nC: Find the date and time of the timeslot with the fewest steps\nD: Find the date and time of the timeslot with the largest number of steps\nE: Find the mean step count of all the records in the file\nF: Find the longest continuous period where the step count is above 500 steps\nQ: Quit\n");
-    printf("Enter input choice: ");
-    scanf("%c", &userinput);
+    
 
     while(running == 1)
     {
+        printf(" \n");
+        printf("A: Specify the filename to be imported\nB: Display the total number of records in the file\nC: Find the date and time of the timeslot with the fewest steps\nD: Find the date and time of the timeslot with the largest number of steps\nE: Find the mean step count of all the records in the file\nF: Find the longest continuous period where the step count is above 500 steps\nQ: Quit\n");
+        printf("Enter input choice: ");
+        scanf("%c", &userinput);
+    
         switch(userinput)
         {
             case 'A':  
@@ -75,7 +78,7 @@ int main()
 
             case 'Q': return 0;
             
-            default: printf("--------------");
+            default: printf("--------------\n");
         }
     }
 

@@ -37,8 +37,15 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
                     }
 
+int feweststeps(struct FITNESS_DATA data[100] int count)
+{
+	int least = 0;
 
-
+	for (int i = 0; i < count; i++)
+	{
+		printf("%s/%s/%d\n", data[i].date, data[i].time, data[i].steps);
+	}
+}
 
 // Complete the main function
 int main() 

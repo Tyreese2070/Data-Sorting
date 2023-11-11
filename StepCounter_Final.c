@@ -37,14 +37,22 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
                     }
 
-int feweststeps(struct FITNESS_DATA data[100] int count)
+void feweststeps(FITNESS_DATA data[100], int count)
 {
-	int least = 0;
+	int least;
+    least = data[0].steps;
+    int returnrecord = 0;
 
 	for (int i = 0; i < count; i++)
 	{
-		printf("%s/%s/%d\n", data[i].date, data[i].time, data[i].steps);
-	}
+        if (data[i].steps < least)
+        {
+            least = data[i].steps;
+            returnrecord = i;
+        }
+    }
+    printf("Fewest steps: %s %s\n", data[returnrecord].date, data[returnrecord].time);
+	
 }
 
 // Complete the main function
@@ -69,7 +77,7 @@ int main()
         printf(" \n");
         printf("A: Specify the filename to be imported\nB: Display the total number of records in the file\nC: Find the date and time of the timeslot with the fewest steps\nD: Find the date and time of the timeslot with the largest number of steps\nE: Find the mean step count of all the records in the file\nF: Find the longest continuous period where the step count is above 500 steps\nQ: Quit\n");
         printf("Enter input choice: ");
-        scanf("%c", &userinput);
+        scanf(" %c", &userinput);
     
         switch(userinput)
         {
@@ -96,13 +104,14 @@ int main()
                             count ++;
                         }
                 }
+                getchar();
             break;
             
             case 'B':
-                printf("Total records: %d", count);
+                printf("Total records: %d\n", count);
             break;
 
-            case 'c':
+            case 'C':
                 feweststeps(data_array, count);
             break;
 

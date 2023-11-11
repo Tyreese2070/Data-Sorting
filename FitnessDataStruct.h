@@ -13,5 +13,6 @@ typedef struct {
 
 // Helper function prototypes
 void tokeniseRecord(const char *input, const char *delimiter, char *date, char *time, char *steps);
+void feweststeps(FITNESS_DATA data[100], int count);
 
 #endif // FITNESS_DATA_STRUCT_H

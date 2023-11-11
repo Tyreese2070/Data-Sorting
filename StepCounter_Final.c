@@ -37,6 +37,7 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
                     }
 
+
 void feweststeps(FITNESS_DATA data[100], int count)
 {
 	int least;
@@ -51,8 +52,65 @@ void feweststeps(FITNESS_DATA data[100], int count)
             returnrecord = i;
         }
     }
-    printf("Fewest steps: %s %s\n", data[returnrecord].date, data[returnrecord].time);
-	
+    printf("Fewest steps: %s %s\n", data[returnrecord].date, data[returnrecord].time);	
+}
+
+void largeststeps(FITNESS_DATA data[100], int count)
+{
+	int most;
+    most = data[0].steps;
+    int returnrecord = 0;
+
+	for (int i = 0; i < count; i++)
+	{
+        if (data[i].steps > most)
+        {
+            most = data[i].steps;
+            returnrecord = i;
+        }
+    }
+    printf("Largest steps: %s %s\n", data[returnrecord].date, data[returnrecord].time);	
+}
+
+void meansteps(FITNESS_DATA data[100], int count)
+{
+	int mean;
+    int total = 0;
+
+	for (int i = 0; i < count; i++)
+	{
+        total += data[i].steps;
+    }
+    mean = total/count;
+    printf("Mean step count: %d\n", mean);	
+}
+
+void longestperiod(FITNESS_DATA data[100], int count)
+{
+	int startrecord;
+    int endrecord;
+    int tracking = 0;
+
+	for (int i = 0; i < count; i++)
+	{
+        if (data[i].steps > 500)
+        {
+            if (tracking == 0)
+            {
+                tracking = 1;
+                startrecord = i;
+            }
+
+            else if (data[i].steps < 500 && tracking == 1)
+            {
+                endrecord = i-1;
+                tracking = 0;
+            }
+        }
+    }
+
+    printf("Longest period start: %s %s\n", data[startrecord].date, data[startrecord].time);
+    printf("Longest period end: %s %s\n", data[endrecord].date, data[endrecord].time);	
 }
 
 // Complete the main function
@@ -89,7 +147,7 @@ int main()
                 FILE *file = fopen(data, "r");
                 if (file == NULL)
                 {
-                    perror("Error: Could not find or open file");
+                    perror("Error: Could not open file");
                     return 1;
                 }
                 else
@@ -113,6 +171,14 @@ int main()
 
             case 'C':
                 feweststeps(data_array, count);
+            break;
+
+            case 'D':
+                largeststeps(data_array, count);
+            break;
+
+            case 'E':
+                meansteps(data_array, count);
             break;
 
             case 'Q': 

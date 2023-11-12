@@ -16,5 +16,6 @@ void tokeniseRecord(const char *input, const char *delimiter, char *date, char *
 void feweststeps(FITNESS_DATA data[100], int count);
 void largeststeps(FITNESS_DATA data[100], int count);
 void meansteps(FITNESS_DATA data[100], int count);
+void longestperiod(FITNESS_DATA data[100], int count);
 
 #endif // FITNESS_DATA_STRUCT_H

@@ -74,7 +74,7 @@ void largeststeps(FITNESS_DATA data[100], int count)
 
 void meansteps(FITNESS_DATA data[100], int count)
 {
-	int mean;
+	float mean;
     int total = 0;
 
 	for (int i = 0; i < count; i++)
@@ -82,29 +82,53 @@ void meansteps(FITNESS_DATA data[100], int count)
         total += data[i].steps;
     }
     mean = total/count;
-    printf("Mean step count: %d\n", mean);	
+    printf("Mean step count: %0.1f\n", mean);	
 }
 
 void longestperiod(FITNESS_DATA data[100], int count)
 {
-	int startrecord;
-    int endrecord;
+	int startrecord = 0;
+    int endrecord = 0;
     int tracking = 0;
+    int longestnum = 0;
+    int currentnum = 0;
+    int currentstart = 0;
+    int currentmax = 0;
 
-	for (int i = 0; i < count; i++)
+	for (int i = 0; i <= count; i++)
 	{
         if (data[i].steps > 500)
         {
             if (tracking == 0)
             {
                 tracking = 1;
-                startrecord = i;
+                currentstart = i;
+                currentnum += 1;
             }
 
             else if (data[i].steps < 500 && tracking == 1)
             {
-                endrecord = i-1;
+                if ( i-1 < 0)
+                {
+                    currentmax = 0;
+                }
+                else
+                {
+                    currentmax = i-1;
+                }
                 tracking = 0;
+                if (tracking == 1 && currentnum > longestnum)
+                {
+                    longestnum = currentnum;
+                    startrecord = currentstart;
+                    endrecord = currentmax;
+                }
+                currentnum = 0;
+            }
+
+            else
+            {
+                currentnum += 1;
             }
         }
     }
@@ -179,6 +203,10 @@ int main()
 
             case 'E':
                 meansteps(data_array, count);
+            break;
+
+            case 'F':
+                longestperiod(data_array, count);
             break;
 
             case 'Q': 

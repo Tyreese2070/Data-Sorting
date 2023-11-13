@@ -87,18 +87,21 @@ void meansteps(FITNESS_DATA data[100], int count)
     decmean = total/count;
 
     //rounding the number
-    sprintf(strnum, "%f", mean);
-    int count = 0;
-    char roundval[1];
-    while (count < 11)
+    sprintf(strnum, "%f", decmean);
+    int j = 0;
+    int roundval = -1;
+    while (j < 11)
     {
-        if strnum[count] == "."
+        if (strnum[j] == ".")
         {
-            roundval = strnum[count];
+            roundval = j + 1;
         }
-        
     }
 
+    if (strnum[roundval] > 4)
+    {
+        mean += 1;
+    }
     printf("Mean step count: %d\n", mean);	
 }
 

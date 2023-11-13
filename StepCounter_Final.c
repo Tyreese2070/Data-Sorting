@@ -97,17 +97,20 @@ void longestperiod(FITNESS_DATA data[100], int count)
 
 	for (int i = 0; i <= count; i++)
 	{
+        printf("%d ", i);
         if (data[i].steps > 500)
         {
             if (tracking == 0)
             {
+                printf("Begin tracking ");
                 tracking = 1;
                 currentstart = i;
                 currentnum += 1;
             }
 
-            else if (data[i].steps < 500 && tracking == 1)
+            else if (data[i].steps < 500 && tracking == 1) //------------------------------------------
             {
+                printf("End tracking ");
                 if ( i-1 < 0)
                 {
                     currentmax = 0;
@@ -116,18 +119,21 @@ void longestperiod(FITNESS_DATA data[100], int count)
                 {
                     currentmax = i-1;
                 }
-                tracking = 0;
+
                 if (tracking == 1 && currentnum > longestnum)
                 {
                     longestnum = currentnum;
                     startrecord = currentstart;
                     endrecord = currentmax;
                 }
+
+                tracking = 0;
                 currentnum = 0;
             }
 
             else
             {
+                printf("Update counter ");
                 currentnum += 1;
             }
         }
@@ -156,7 +162,6 @@ int main()
 
     while(running == 1)
     {
-        printf(" \n");
         printf("A: Specify the filename to be imported\nB: Display the total number of records in the file\nC: Find the date and time of the timeslot with the fewest steps\nD: Find the date and time of the timeslot with the largest number of steps\nE: Find the mean step count of all the records in the file\nF: Find the longest continuous period where the step count is above 500 steps\nQ: Quit\n");
         printf("Enter input choice: ");
         scanf(" %c", &userinput);
@@ -171,7 +176,7 @@ int main()
                 FILE *file = fopen(data, "r");
                 if (file == NULL)
                 {
-                    perror("Error: Could not open file");
+                    printf("Error: Could not open file\n");
                     return 1;
                 }
                 else
@@ -213,7 +218,7 @@ int main()
                 running = 0;
             break;
             
-            default: printf("--------------\n");
+            default: printf("Invalid choice. Try again.\n");
             break;
         }
     }

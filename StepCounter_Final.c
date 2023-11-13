@@ -74,15 +74,32 @@ void largeststeps(FITNESS_DATA data[100], int count)
 
 void meansteps(FITNESS_DATA data[100], int count)
 {
-	float mean;
+	int mean;
+    float decmean;
     int total = 0;
+    char strnum[10];
 
 	for (int i = 0; i < count; i++)
 	{
         total += data[i].steps;
     }
     mean = total/count;
-    printf("Mean step count: %0.1f\n", mean);	
+    decmean = total/count;
+
+    //rounding the number
+    sprintf(strnum, "%f", mean);
+    int count = 0;
+    char roundval[1];
+    while (count < 11)
+    {
+        if strnum[count] == "."
+        {
+            roundval = strnum[count];
+        }
+        
+    }
+
+    printf("Mean step count: %d\n", mean);	
 }
 
 void longestperiod(FITNESS_DATA data[100], int count)
@@ -97,46 +114,44 @@ void longestperiod(FITNESS_DATA data[100], int count)
 
 	for (int i = 0; i <= count; i++)
 	{
-        printf("%d ", i);
         if (data[i].steps > 500)
         {
             if (tracking == 0)
             {
-                printf("Begin tracking ");
                 tracking = 1;
                 currentstart = i;
                 currentnum += 1;
             }
 
-            else if (data[i].steps < 500 && tracking == 1) //------------------------------------------
+            else if (tracking == 1)
             {
-                printf("End tracking ");
-                if ( i-1 < 0)
-                {
-                    currentmax = 0;
-                }
-                else
-                {
-                    currentmax = i-1;
-                }
+                currentnum += 1;
+            }
+        }
 
-                if (tracking == 1 && currentnum > longestnum)
-                {
-                    longestnum = currentnum;
-                    startrecord = currentstart;
-                    endrecord = currentmax;
-                }
-
-                tracking = 0;
-                currentnum = 0;
+        else if (data[i].steps < 500 && tracking == 1)
+        {
+            if ( i-1 < 0)
+            {
+                currentmax = 0;
             }
 
             else
             {
-                printf("Update counter ");
-                currentnum += 1;
+                currentmax = i-1;
             }
+
+            if (tracking == 1 && currentnum > longestnum)
+            {
+                longestnum = currentnum;
+                startrecord = currentstart;
+                endrecord = currentmax-1;
+            }
+
+            tracking = 0;
+            currentnum = 0;
         }
+        
     }
 
     printf("Longest period start: %s %s\n", data[startrecord].date, data[startrecord].time);
@@ -168,7 +183,8 @@ int main()
     
         switch(userinput)
         {
-            case 'A':  
+            case 'A':
+            case 'a':  
                 printf("Input filename: ");
                 scanf("%s", filename);
                 char data[25];
@@ -195,26 +211,32 @@ int main()
             break;
             
             case 'B':
+            case 'b':
                 printf("Total records: %d\n", count);
             break;
 
             case 'C':
+            case 'c':
                 feweststeps(data_array, count);
             break;
 
             case 'D':
+            case 'd':
                 largeststeps(data_array, count);
             break;
 
             case 'E':
+            case 'e':
                 meansteps(data_array, count);
             break;
 
             case 'F':
+            case 'f':
                 longestperiod(data_array, count);
             break;
 
-            case 'Q': 
+            case 'Q':
+            case 'q': 
                 running = 0;
             break;
             

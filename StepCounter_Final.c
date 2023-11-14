@@ -90,17 +90,21 @@ void meansteps(FITNESS_DATA data[100], int count)
     sprintf(strnum, "%f", decmean);
     int j = 0;
     int roundval = -1;
+    char strvalue[2] = ".";
+    sprintf(strnum[j], "%s", strvalue);
+
     while (j < 11)
     {
-        if (strnum[j] == ".")
+        if (strvalue == ".")
         {
             roundval = j + 1;
         }
     }
 
-    if (strnum[roundval] > 4)
+    if (roundval > 4)
     {
         mean += 1;
+        printf("round up");
     }
     printf("Mean step count: %d\n", mean);	
 }

@@ -85,7 +85,7 @@ void meansteps(FITNESS_DATA data[100], int count)
     }
     mean = total/count;
 
-    
+    /*
     decmean = total/count;
     decmean = 59.9;
     mean = 59.9;
@@ -115,7 +115,7 @@ void meansteps(FITNESS_DATA data[100], int count)
         mean += 1;
         printf("round up");
     }
-    
+    */
     printf("Mean step count: %d\n", mean);	
 }
 

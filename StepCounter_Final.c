@@ -255,6 +255,7 @@ int main()
             case 'Q':
             case 'q': 
                 running = 0;
+                fclose(file);
             break;
             
             default: printf("Invalid choice. Try again.\n");

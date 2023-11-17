@@ -74,8 +74,8 @@ void largeststeps(FITNESS_DATA data[100], int count)
 
 void meansteps(FITNESS_DATA data[100], int count)
 {
-	int mean;
-    float decmean;
+	float mean;
+    //float decmean;
     int total = 0;
     char strnum[10];
 
@@ -116,7 +116,7 @@ void meansteps(FITNESS_DATA data[100], int count)
         printf("round up");
     }
     */
-    printf("Mean step count: %d\n", mean);	
+    printf("Mean step count: %.0f\n", mean);	
 }
 
 void longestperiod(FITNESS_DATA data[100], int count)

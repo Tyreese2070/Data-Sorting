@@ -181,6 +181,7 @@ int main()
     char userinput;
     char filename[25];
     int running = 1;
+    int fileopened = 0;
     FITNESS_DATA data_array[100];
 
     char date[11];
@@ -220,6 +221,7 @@ int main()
                 }
                 else
                 {
+                    fileopened = 1;
                     printf("File successfully loaded.\n");
                     while (fgets(line_buffer, buffer_size, file) != NULL)
                         {
@@ -236,27 +238,66 @@ int main()
             
             case 'B':
             case 'b':
-                printf("Total records: %d\n", count);
+                if (fileopened == 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    printf("Total records: %d\n", count);
+                }
             break;
 
             case 'C':
             case 'c':
-                feweststeps(data_array, count);
+                if (fileopened == 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    feweststeps(data_array, count);
+                }
+                
             break;
 
             case 'D':
             case 'd':
-                largeststeps(data_array, count);
+                if (fileopened == 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    largeststeps(data_array, count);
+                }
+                
             break;
 
             case 'E':
             case 'e':
-                meansteps(data_array, count);
+                if (fileopened == 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    meansteps(data_array, count);
+                }
+                
             break;
 
             case 'F':
             case 'f':
-                longestperiod(data_array, count);
+                if (fileopened == 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    longestperiod(data_array, count);
+                }
+                
             break;
 
             case 'Q':

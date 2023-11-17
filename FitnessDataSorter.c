@@ -26,6 +26,7 @@ void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *s
     }
 }
 
+/*
 int length(char string)
 {
     int count = 0;
@@ -36,6 +37,7 @@ int length(char string)
     count ++;
     return count
 }
+*/
 
 int getdata(char filename[15], char mode[2])
 {

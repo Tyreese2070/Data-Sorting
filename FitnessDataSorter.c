@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
 
 // Define the struct for the fitness data
 typedef struct {
@@ -55,7 +54,18 @@ int getdata(char filename[15], char mode[2])
         {
             tokeniseRecord(line_buffer, ',', date, time, &steps);
             strcpy(data_array[count].date, date);
+            if (data_array[count].date == "")
+            {
+                printf("Error: Invalid file\n");
+                return -1;
+            }
+
             strcpy(data_array[count].time, time);
+            if (data_array[count].time == "")
+            {
+                printf("Error: Invalid file\n");
+                return -1;
+            }
             data_array[count].steps = steps;
             count ++;
         }
@@ -96,6 +106,23 @@ void bubble_sort(FitnessData data_array[], int recordcount)
     }
 }
 
+/*
+void addtofile(char filename, int recordcount)
+{
+    FILE *file = fopen(filename, "w");
+    if (file == NULL)
+    {
+        printf("Error: Could not open file\n");
+        return -1;
+    }
+
+    for (int i = 0; i < recordcount; i++)
+    {
+        fprintf(file, "%s\t%s\t%d\t"data_array[i].date, data_array[i].time, data_array[i].steps);
+    }
+}
+*/
+
 
 int main() 
 {
@@ -116,10 +143,22 @@ int main()
 
     // Printing sorted array
     bubble_sort(data_array, recordcount);
+    strcat(filename, ".tsv");
+
+    FILE *file = fopen(filename, "w");
+    if (file == NULL)
+    {
+        printf("Error: Could not open file\n");
+        return -1;
+    }
+
     for (int i = 0; i < recordcount; i++)
     {
-        printf("%s %s %d\n", data_array[i].date, data_array[i].time, data_array[i].steps);
+        fprintf(file, "%s\t%s\t%d\t\n", data_array[i].date, data_array[i].time, data_array[i].steps);
     }
+    fclose(file);
+
+    printf("Data sorted and written to: %s\n", filename);
 
     return 0;
     

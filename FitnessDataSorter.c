@@ -10,6 +10,8 @@ typedef struct {
     int steps;
 } FitnessData;
 
+FitnessData data_array[100];
+
 // Function to tokenize a record
 void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *steps) {
     char *ptr = strtok(record, &delimiter);
@@ -26,92 +28,99 @@ void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *s
     }
 }
 
-/*
-int length(char string)
-{
-    int count = 0;
-    while (string[i] != "/0")
-    {
-        count ++
-    }
-    count ++;
-    return count
-}
-*/
-
 int getdata(char filename[15], char mode[2])
 {
-    FitnessData data_array[100];
+    //FitnessData data_array[100];
     char data[25];
     char date[11];
     char time[6];
     int count = 0;
     int steps;
-    //char delimiter = ",";
     int buffer_size = 1024;
     char line_buffer[buffer_size];
 
+    // Opening the file
     strcpy(data, filename);
     FILE *file = fopen(data, mode);
     if (file == NULL)
     {
         printf("Error: Could not open file\n");
-        return 1;
+        return -1;
     }
     else
+
+    // Reading from the file and adding it to the array
     {
         while (fgets(line_buffer, buffer_size, file) != NULL)
         {
-            tokeniseRecord(filename, ",", date, time, steps);
-            //if (data_array[count].date != length(data_array[count].date))
+            tokeniseRecord(line_buffer, ',', date, time, &steps);
             strcpy(data_array[count].date, date);
             strcpy(data_array[count].time, time);
-            strcpy(data_array[count].steps, steps);
+            data_array[count].steps = steps;
             count ++;
         }
-    }
-    return 0, count;
+        fclose(file);
 
-    //return data_array;
+    }
+    return count;
 }
 
-/*
-struct bubbleSort(struct data, int count)
+// Bubble sort function in descending order
+void bubble_sort(FitnessData data_array[], int recordcount)
 {
-    char temptime;
-    char tempdate;
+    char temptime[6] = "";
+    char tempdate[11] = "";
     int tempsteps;
-    char temp;
-    for (i = 0; i < count; i++)
+    for (int i = 0; i < recordcount - 1; i++)
     {
-        for (j = 0; i < count, i++)
+        for (int j = 0; j < recordcount - i - 1; j++)
         {
-            if (data[j].steps > data[j+1].steps)
+            if (data_array[j].steps < data_array[j + 1].steps)
             {
-                data[j] = temp;
-                data[j] = data[j+1];
-                data[j+1] = temp;
+                // Swapping time
+                strcpy(temptime, data_array[j].time);
+                strcpy(data_array[j].time, data_array[j+1].time);
+                strcpy(data_array[j+1].time, temptime);
+
+                // Swapping dates
+                strcpy(tempdate, data_array[j].date);
+                strcpy(data_array[j].date, data_array[j+1].date);
+                strcpy(data_array[j+1].date, tempdate);
+
+                // Swapping Steps
+                tempsteps = data_array[j].steps;
+                data_array[j].steps = data_array[j+1].steps;
+                data_array[j+1].steps = tempsteps;
             }
         }
     }
 }
-*/
+
 
 int main() 
 {
-    FitnessData data_array[100];
+    //FitnessData data_array[100];
     int recordcount;
-    int fileread;
-    char filename[15];
+    char filename[25];
+
+    // Getting the users filename and adding it to an array
     printf("Input filename: ");
     scanf("%s", filename);
-    fileread, recordcount = getdata(filename, "r");
-    if (fileread == 1)
+    recordcount = getdata(filename, "r");
+
+    // Returning an error if given filename isn't valid
+    if (recordcount == -1)
     {
         return 1;
     }
 
-    //data_array[100] = bubbleSort(data_array, recordcount);
+    // Printing sorted array
+    bubble_sort(data_array, recordcount);
+    for (int i = 0; i < recordcount; i++)
+    {
+        printf("%s %s %d\n", data_array[i].date, data_array[i].time, data_array[i].steps);
+    }
+
     return 0;
     
 }

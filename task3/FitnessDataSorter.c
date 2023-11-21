@@ -50,38 +50,20 @@ int getdata(char filename[30], char mode[2])
 
     // Reading from the file and adding it to the array
     {
-        while (fgets(line_buffer, buffer_size, file) != NULL)
-        {
-            tokeniseRecord(line_buffer, ',', date, time, &steps);
-            if (strlen(data_array[count].date) != 0 || strlen(data_array[count].time) != 0 || data_array[count].steps < 0)
-            {
-                printf("Error check 1\n");
-                return -1;
-            }
+    while (fgets(line_buffer, buffer_size, file) != NULL)
+    {
+        tokeniseRecord(line_buffer, ',', date, time, &steps);
+            strcpy(data_array[count].date, date);
+            strcpy(data_array[count].time, time);
+            data_array[count].steps = steps;
 
-            else
+            if (strlen(data_array[count].date) != 10 || strlen(data_array[count].time) != 5 || data_array[count].steps <= 0)
             {
-                strcpy(data_array[count].date, date);
-                if (sizeof(data_array[count].date) != 11)
-                {
-                    printf("Error: Invalid file\n");
-                    return -1;
-                }
-
-                strcpy(data_array[count].time, time);
-                if (sizeof(data_array[count].time) != 6)
-                {
-                    printf("Error: Invalid file\n");
-                    return -1;
-                }
-                data_array[count].steps = steps;
-                if (steps < 0)
-                {
-                    printf("Error: Invalid file");
-                    return -1;
-                }
-                count ++;
+            printf("%ld %ld %d\n", strlen(data_array[count].date), strlen(data_array[count].time), data_array[count].steps);
+            return -1;
             }
+            //printf("%ld %ld %d\n", strlen(data_array[count].date), strlen(data_array[count].time), data_array[count].steps);
+            count ++;
         }
         fclose(file);
 
@@ -146,7 +128,7 @@ int main()
     if (file == NULL)
     {
         printf("Error: Could not open file\n");
-        return -1;
+        return 1;
     }
 
     for (int i = 0; i < recordcount; i++)

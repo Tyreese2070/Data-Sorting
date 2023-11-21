@@ -40,12 +40,26 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
 
 
-int createStruct(errorvalue)
+int createStruct(int errorvalue, int recordcount, char filename[25])
 {
     char date[11];
     char time[6];
-    int steps;
-    int count = 0;
+    char steps[10];
+    int buffer_size = 1024;
+    char line_buffer[buffer_size];
+    FILE *file = fopen(filename, "r");
+    if (file == NULL)
+    {
+        return 1;
+    }
+
+    while (fgets(line_buffer, buffer_size, file) != NULL)
+    {
+        tokeniseRecord(line_bufffer, ",", date, time, steps);
+        strcpy(data_array[count].date, date);
+        strcpy(data_array[count].time, time)
+        data_array[count].steps = atoi(steps);
+    }
     return 0;
 }
 
@@ -68,11 +82,12 @@ int main()
             case 'a':
                 printf("Input filename: \n");
                 scanf("%s", filename);
+                createStruct(errorvalue, recordcount, filename);
 
         }
     }
     
-    if (errorvalue == 0)
+    if (errorvalue == 1)
     {
         printf("Error: Invalid file\n");
         return 1;

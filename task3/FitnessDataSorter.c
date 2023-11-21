@@ -111,24 +111,6 @@ void bubble_sort(FitnessData data_array[], int recordcount)
     }
 }
 
-/*
-void addtofile(char filename, int recordcount)
-{
-    FILE *file = fopen(filename, "w");
-    if (file == NULL)
-    {
-        printf("Error: Could not open file\n");
-        return -1;
-    }
-
-    for (int i = 0; i < recordcount; i++)
-    {
-        fprintf(file, "%s\t%s\t%d\t"data_array[i].date, data_array[i].time, data_array[i].steps);
-    }
-}
-*/
-
-
 int main() 
 {
     //FitnessData data_array[100];
@@ -159,7 +141,7 @@ int main()
 
     for (int i = 0; i < recordcount; i++)
     {
-        fprintf(file, "%s\t%s\t%d\t\n", data_array[i].date, data_array[i].time, data_array[i].steps);
+        fprintf(file, "%s\t%s\t%d\n", data_array[i].date, data_array[i].time, data_array[i].steps);
     }
     fclose(file);
 

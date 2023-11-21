@@ -53,26 +53,34 @@ int getdata(char filename[15], char mode[2])
         while (fgets(line_buffer, buffer_size, file) != NULL)
         {
             tokeniseRecord(line_buffer, ',', date, time, &steps);
-            strcpy(data_array[count].date, date);
-            if (sizeof(data_array[count].date) != 11)
+            if (strlen(data_array[count].date) == 0 || strlen(data_array[count].time) == 0 || data_array[count].steps == 0)
             {
-                printf("Error: Invalid file\n");
                 return -1;
             }
 
-            strcpy(data_array[count].time, time);
-            if (sizeof(data_array[count].time) != 6)
+            else
             {
-                printf("Error: Invalid file\n");
-                return -1;
+                strcpy(data_array[count].date, date);
+                if (sizeof(data_array[count].date) != 11)
+                {
+                    printf("Error: Invalid file\n");
+                    return -1;
+                }
+
+                strcpy(data_array[count].time, time);
+                if (sizeof(data_array[count].time) != 6)
+                {
+                    printf("Error: Invalid file\n");
+                    return -1;
+                }
+                data_array[count].steps = steps;
+                if (steps < 0)
+                {
+                    printf("Error: Invalid file");
+                    return -1;
+                }
+                count ++;
             }
-            data_array[count].steps = steps;
-            if (steps < 0)
-            {
-                printf("Error: Invalid file");
-                return -1;
-            }
-            count ++;
         }
         fclose(file);
 

@@ -27,10 +27,10 @@ void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *s
     }
 }
 
-int getdata(char filename[15], char mode[2])
+int getdata(char filename[30], char mode[2])
 {
     //FitnessData data_array[100];
-    char data[25];
+    char data[30];
     char date[11];
     char time[6];
     int count = 0;
@@ -43,7 +43,7 @@ int getdata(char filename[15], char mode[2])
     FILE *file = fopen(data, mode);
     if (file == NULL)
     {
-        printf("Error: Could not open file\n");
+        //printf("Error: Could not open file\n");
         return -1;
     }
     else
@@ -53,8 +53,9 @@ int getdata(char filename[15], char mode[2])
         while (fgets(line_buffer, buffer_size, file) != NULL)
         {
             tokeniseRecord(line_buffer, ',', date, time, &steps);
-            if (strlen(data_array[count].date) == 0 || strlen(data_array[count].time) == 0 || data_array[count].steps == 0)
+            if (strlen(data_array[count].date) != 0 || strlen(data_array[count].time) != 0 || data_array[count].steps < 0)
             {
+                printf("Error check 1\n");
                 return -1;
             }
 
@@ -123,7 +124,7 @@ int main()
 {
     //FitnessData data_array[100];
     int recordcount;
-    char filename[25];
+    char filename[30];
 
     // Getting the users filename and adding it to an array
     printf("Input filename: ");
@@ -133,6 +134,7 @@ int main()
     // Returning an error if given filename isn't valid
     if (recordcount == -1)
     {
+        printf("Error: Invalid File\n");
         return 1;
     }
 

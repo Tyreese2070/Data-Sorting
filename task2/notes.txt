@@ -1,2 +1,3 @@
 Program doesnt correctly find end point of continuous 500 steps
-Incorrect mean
+
+mean error caused by integer divison

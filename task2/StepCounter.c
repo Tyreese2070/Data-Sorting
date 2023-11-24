@@ -84,7 +84,7 @@ void meansteps(FITNESS_DATA data[datasize], int count)
         total += data[i].steps;
     }
     mean = (float)total/count;
-    int intmean = (int)mean;
+    int intmean = (int)(mean + 0.5);
 
     printf("Mean step count: %d\n", intmean);	
 }

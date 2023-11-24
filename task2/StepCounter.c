@@ -97,7 +97,7 @@ void longestperiod(FITNESS_DATA data[100], int count)
     int currentstart = 0;
     int currentmax = 0;
 
-	for (int i = 0; i <= count; i++)
+	for (int i = 0; i < count; i++)
 	{
         if (data[i].steps > 500)
         {

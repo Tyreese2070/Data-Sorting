@@ -118,21 +118,13 @@ void longestperiod(FITNESS_DATA data[datasize], int count)
 
         else if (data[i].steps < 500 && tracking == 1)
         {
-            if ( i-1 < 0)
-            {
-                currentmax = 0;
-            }
-
-            else
-            {
-                currentmax = i-1;
-            }
+            currentmax = i - 1;
 
             if (tracking == 1 && currentnum > longestnum)
             {
                 longestnum = currentnum;
                 startrecord = currentstart;
-                endrecord = currentmax-1;
+                endrecord = currentmax;
             }
 
             tracking = 0;

@@ -40,19 +40,19 @@ void tokeniseRecord(const char *input, const char *delimiter,
 
 void feweststeps(FITNESS_DATA data[100], int count)
 {
-	int least;
-    least = data[0].steps;
-    int returnrecord = 0;
+    int least = data[0].steps;
+    int leastrec = 0;
 
-	for (int i = 0; i < count; i++)
-	{
+    for (int i = 0; i < count; i++)
+    {
         if (data[i].steps < least)
         {
             least = data[i].steps;
-            returnrecord = i;
+            leastrec = i;
         }
     }
-    printf("Fewest steps: %s %s\n", data[returnrecord].date, data[returnrecord].time);	
+
+    printf("Fewest steps: %s %s\n", data[leastrec].date, data[leastrec].time);	
 }
 
 void largeststeps(FITNESS_DATA data[100], int count)
@@ -68,7 +68,6 @@ void largeststeps(FITNESS_DATA data[100], int count)
             maxrecord = i;
         }
     }
-    printf("date: %s time: %s max: %d maxrec: %d count: %d\n", data[maxrecord].date, data[maxrecord].time, max, maxrecord, count);
     printf("Largest steps: %s %s\n", data[maxrecord].date, data[maxrecord].time);
 
 }

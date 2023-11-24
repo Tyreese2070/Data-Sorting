@@ -3,6 +3,8 @@
 #include <string.h>
 #include "FitnessDataStruct.h"
 
+int datasize = 200;
+
 // Struct moved to header file
 
 // Define any additional variables here
@@ -38,7 +40,7 @@ void tokeniseRecord(const char *input, const char *delimiter,
                     }
 
 
-void feweststeps(FITNESS_DATA data[100], int count)
+void feweststeps(FITNESS_DATA data[datasize], int count)
 {
     int least = data[0].steps;
     int leastrec = 0;
@@ -55,7 +57,7 @@ void feweststeps(FITNESS_DATA data[100], int count)
     printf("Fewest steps: %s %s\n", data[leastrec].date, data[leastrec].time);	
 }
 
-void largeststeps(FITNESS_DATA data[100], int count)
+void largeststeps(FITNESS_DATA data[datasize], int count)
 {
     int max = 0;
     int maxrecord = 0;
@@ -72,7 +74,7 @@ void largeststeps(FITNESS_DATA data[100], int count)
 
 }
 
-void meansteps(FITNESS_DATA data[100], int count)
+void meansteps(FITNESS_DATA data[datasize], int count)
 {
 	float mean;
     int total = 0;
@@ -87,7 +89,7 @@ void meansteps(FITNESS_DATA data[100], int count)
     printf("Mean step count: %d\n", intmean);	
 }
 
-void longestperiod(FITNESS_DATA data[100], int count)
+void longestperiod(FITNESS_DATA data[datasize], int count)
 {
 	int startrecord = 0;
     int endrecord = 0;
@@ -147,10 +149,10 @@ void longestperiod(FITNESS_DATA data[100], int count)
 int main() 
 {
     char userinput;
-    char filename[25];
+    char filename[50];
     int running = 1;
     int fileopened = 0;
-    FITNESS_DATA data_array[100];
+    FITNESS_DATA data_array[datasize];
 
     char date[11];
     char time[6];
@@ -179,7 +181,7 @@ int main()
             case 'a':  
                 printf("Input filename: ");
                 scanf("%s", filename);
-                char data[25];
+                char data[50];
                 strcpy(data, filename);
                 FILE *file = fopen(data, "r");
                 if (file == NULL)

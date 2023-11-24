@@ -1,2 +1,2 @@
-issue with option F - longest continuous period
-smashing detected on q press
+Program doesnt correctly find end point of continuous 500 steps
+Incorrect mean

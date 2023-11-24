@@ -57,35 +57,35 @@ void feweststeps(FITNESS_DATA data[100], int count)
 
 void largeststeps(FITNESS_DATA data[100], int count)
 {
-	int most;
-    most = data[0].steps;
-    int returnrecord = 0;
+    int max = 0;
+    int maxrecord = 0;
 
-	for (int i = 0; i < count; i++)
-	{
-        if (data[i].steps > most)
+    for (int i = 0; i < count; i++)
+    {
+        if (data[i].steps < data[i+1].steps)
         {
-            most = data[i].steps;
-            returnrecord = i;
+            max = data[i+1].steps;
+            maxrecord = i+1;
         }
     }
-    printf("Largest steps: %s %s\n", data[returnrecord].date, data[returnrecord].time);	
+
+    printf("Largest steps: %s %s\n", data[maxrecord].date, data[maxrecord].time);
+
 }
 
 void meansteps(FITNESS_DATA data[100], int count)
 {
 	float mean;
-    //float decmean;
     int total = 0;
-    char strnum[10];
 
 	for (int i = 0; i < count; i++)
 	{
         total += data[i].steps;
     }
-    mean = total/count;
+    mean = (float)total/count;
+    int intmean = (int)mean;
 
-    printf("Mean step count: %.0f\n", mean);	
+    printf("Mean step count: %d\n", intmean);	
 }
 
 void longestperiod(FITNESS_DATA data[100], int count)
@@ -203,74 +203,46 @@ int main()
                 }
                 fclose(file);
                 getchar();
+
+                /*
+                for (int i = 0; i < count; i++)
+                {
+                    printf("%s %s %d\n", data_array[i].date, data_array[i].time, data_array[i].steps);
+                }
+                */
+
             break;
             
             case 'B':
-            case 'b':
-                if (fileopened == 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    printf("Total records: %d\n", count);
-                }
+            case 'b': 
+                printf("Total records: %d\n", count); 
             break;
 
             case 'C':
             case 'c':
-                if (fileopened == 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    feweststeps(data_array, count);
-                }
-                
+                feweststeps(data_array, count); 
             break;
 
             case 'D':
             case 'd':
-                if (fileopened == 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    largeststeps(data_array, count);
-                }
+                largeststeps(data_array, count);
                 
             break;
 
             case 'E':
             case 'e':
-                if (fileopened == 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    meansteps(data_array, count);
-                }
+                meansteps(data_array, count);
                 
             break;
 
             case 'F':
             case 'f':
-                if (fileopened == 0)
-                {
-                    return 1;
-                }
-                else
-                {
-                    longestperiod(data_array, count);
-                }
-                
+                longestperiod(data_array, count);
             break;
 
             case 'Q':
             case 'q': 
+                //return 0;
                 running = 0;
             break;
             

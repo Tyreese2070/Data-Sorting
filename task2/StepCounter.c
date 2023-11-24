@@ -62,13 +62,13 @@ void largeststeps(FITNESS_DATA data[100], int count)
 
     for (int i = 0; i < count; i++)
     {
-        if (data[i].steps < data[i+1].steps)
+        if (data[i].steps > max)
         {
-            max = data[i+1].steps;
-            maxrecord = i+1;
+            max = data[i].steps;
+            maxrecord = i;
         }
     }
-
+    printf("date: %s time: %s max: %d maxrec: %d count: %d\n", data[maxrecord].date, data[maxrecord].time, max, maxrecord, count);
     printf("Largest steps: %s %s\n", data[maxrecord].date, data[maxrecord].time);
 
 }

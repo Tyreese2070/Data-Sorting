@@ -62,7 +62,6 @@ int getdata(char filename[30], char mode[2])
             printf("%ld %ld %d\n", strlen(data_array[count].date), strlen(data_array[count].time), data_array[count].steps);
             return -1;
             }
-            //printf("%ld %ld %d\n", strlen(data_array[count].date), strlen(data_array[count].time), data_array[count].steps);
             count ++;
         }
         fclose(file);

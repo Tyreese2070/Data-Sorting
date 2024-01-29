@@ -3,7 +3,8 @@
 #include <string.h>
 
 // Define the struct for the fitness data
-typedef struct {
+typedef struct
+{
     char date[11];
     char time[6];
     int steps;
@@ -12,15 +13,19 @@ typedef struct {
 FitnessData data_array[100];
 
 // Function to tokenize a record
-void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *steps) {
+void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *steps)
+{
     char *ptr = strtok(record, &delimiter);
-    if (ptr != NULL) {
+    if (ptr != NULL)
+    {
         strcpy(date, ptr);
         ptr = strtok(NULL, &delimiter);
-        if (ptr != NULL) {
+        if (ptr != NULL)
+        {
             strcpy(time, ptr);
             ptr = strtok(NULL, &delimiter);
-            if (ptr != NULL) {
+            if (ptr != NULL)
+            {
                 *steps = atoi(ptr);
             }
         }
@@ -29,7 +34,7 @@ void tokeniseRecord(char *record, char delimiter, char *date, char *time, int *s
 
 int getdata(char filename[30], char mode[2])
 {
-    //FitnessData data_array[100];
+    // FitnessData data_array[100];
     char data[30];
     char date[11];
     char time[6];
@@ -43,29 +48,28 @@ int getdata(char filename[30], char mode[2])
     FILE *file = fopen(data, mode);
     if (file == NULL)
     {
-        //printf("Error: Could not open file\n");
+        // printf("Error: Could not open file\n");
         return -1;
     }
     else
 
     // Reading from the file and adding it to the array
     {
-    while (fgets(line_buffer, buffer_size, file) != NULL)
-    {
-        tokeniseRecord(line_buffer, ',', date, time, &steps);
+        while (fgets(line_buffer, buffer_size, file) != NULL)
+        {
+            tokeniseRecord(line_buffer, ',', date, time, &steps);
             strcpy(data_array[count].date, date);
             strcpy(data_array[count].time, time);
             data_array[count].steps = steps;
 
             if (strlen(data_array[count].date) != 10 || strlen(data_array[count].time) != 5 || data_array[count].steps <= 0)
             {
-            printf("%ld %ld %d\n", strlen(data_array[count].date), strlen(data_array[count].time), data_array[count].steps);
-            return -1;
+                printf("%ld %ld %d\n", strlen(data_array[count].date), strlen(data_array[count].time), data_array[count].steps);
+                return -1;
             }
-            count ++;
+            count++;
         }
         fclose(file);
-
     }
     return count;
 }
@@ -84,26 +88,26 @@ void bubble_sort(FitnessData data_array[], int recordcount)
             {
                 // Swapping time
                 strcpy(temptime, data_array[j].time);
-                strcpy(data_array[j].time, data_array[j+1].time);
-                strcpy(data_array[j+1].time, temptime);
+                strcpy(data_array[j].time, data_array[j + 1].time);
+                strcpy(data_array[j + 1].time, temptime);
 
                 // Swapping dates
                 strcpy(tempdate, data_array[j].date);
-                strcpy(data_array[j].date, data_array[j+1].date);
-                strcpy(data_array[j+1].date, tempdate);
+                strcpy(data_array[j].date, data_array[j + 1].date);
+                strcpy(data_array[j + 1].date, tempdate);
 
                 // Swapping Steps
                 tempsteps = data_array[j].steps;
-                data_array[j].steps = data_array[j+1].steps;
-                data_array[j+1].steps = tempsteps;
+                data_array[j].steps = data_array[j + 1].steps;
+                data_array[j + 1].steps = tempsteps;
             }
         }
     }
 }
 
-int main() 
+int main()
 {
-    //FitnessData data_array[100];
+    // FitnessData data_array[100];
     int recordcount;
     char filename[30];
 
@@ -139,5 +143,4 @@ int main()
     printf("Data sorted and written to: %s\n", filename);
 
     return 0;
-    
 }
